@@ -1,0 +1,370 @@
+
+.f-small {
+  font-size: 10px;
+}
+.f-middle {
+  font-size: 14px;
+}
+.f-large {
+  font-size: 18px;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-nw {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.d-block {
+  display: block;
+}
+
+.d-inline {
+  display: inline-block;
+}
+
+.over-scroll {
+  overflow: auto;
+}
+
+.border {
+  border: 1px solid var(--color-base);
+}
+
+.box-shadow {
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.24);
+}
+
+.scroll-shadow {
+  box-shadow: -4px 0 8px -4px rgba(0,0,0,1) inset;
+}
+
+.scroll-shadow > div {
+  position:relative;
+  /* z-index: -1; */
+}
+
+.scroll-shadow:hover > div {
+  z-index: 1;
+}
+
+.image-list .img {
+  max-width: 180px;
+  object-fit: cover;
+}
+
+.image-list .actions {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+}
+.image-list .item:hover .actions {
+  display: block;
+}
+
+[class*="card"],
+.background-white {
+  background-color: var(--color-white);
+}
+.background-color {
+  background-color: var(--color-base);
+  color: var(--color-white);
+}
+
+.dialog {
+  position: fixed;
+  z-index: 20;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-width: 80vw;
+  width: 100%;
+  margin: auto;
+  padding: 16px;
+  border: 0;
+  border-radius: 0.6rem;
+  box-shadow: 0 0 1em rgba(0, 0, 0, 0.4);
+  background-color: var(--color-white);
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+body {
+  padding: 0 2rem;
+  line-height: 1;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.radius {
+  border-radius: 4px;
+}
+
+.logo {
+  max-width: 60px;
+}
+
+.content {
+  min-height: 320px;
+  max-width: 1100px;
+  width: 100%;
+  background-color: var(--color-white);
+}
+
+.content .check { width: 2rem; }
+.content .title { width: calc(100% - 4.4rem); }
+.content .action { width: 2.4rem; }
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  background-color: var(--color-base);
+  color: var(--color-white);
+  line-height: 1;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-icon .path,
+.btn .path {
+  fill: var(--color-white);
+}
+
+.btn-icon {
+  padding: 4px;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background-color: var(--color-base);
+  color: var(--color-white);
+}
+
+.btn-icon img {
+  height: 12px;
+  width: 12px;
+}
+
+.btn-icon:hover,
+.btn:hover {
+  background-color: var(--color-white);
+  color: var(--color-base);
+}
+
+.btn-icon:hover .path,
+.btn:hover .path {
+  fill: var(--color-base);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+}
+.icon-label {
+  position: relative;
+  padding-right: 18px;
+}
+.icon-label img {
+  position: absolute;
+  top: 6px;
+  right: 0;
+}
+
+.input {
+  padding: 8px;
+  line-height: 1;
+  outline: none;
+}
+.textarea {
+  padding: 8px;
+  width: 100%;
+  line-height: 1.7;
+  outline: none;
+}
+.select {
+  position: relative;
+}
+.select::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -6px;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  margin: auto;
+  border-left: 1px solid var(--color-white);;
+  border-bottom: 1px solid var(--color-white);;
+  transform: rotate(-135deg);
+}
+.similar::after {
+  content: "[^]";
+}
+.divhover,
+.link {
+  background-color: var(--color-base);
+  color: var(--color-white);
+}
+
+.divhover:hover,
+.link:hover {
+  background-color: var(--color-white);
+  color: var(--color-base);
+}
+.link:hover {
+  cursor: pointer;
+}
+.divthinhover:hover {
+  background-color: var(--color-base);
+  color: var(--color-white);
+}
+
+.list-menu {
+  position: relative;
+}
+.list-menu .menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  right: 0;
+  width: 120px;
+  background-color: var(--color-white);
+}
+.field {
+  margin: 0 0 8px;
+  padding: 0 0 8px;
+  border-bottom: 1px solid var(--color-base);
+}
+
+.list-menu:hover .menu {
+  display: block;
+}
+.tag {
+  display: inline-block;
+  padding: 4px;
+  background-color: var(--color-sub);
+  color: var(--color-white);
+  line-height: 1;
+}
+.input-filter,
+.positionbase {
+  position: relative;
+}
+.positionTopLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.input-filter-view {
+  min-width: 420px;
+  max-height: 230px;
+  background-color: var(--color-white);
+}
+.cursor:hover {
+  cursor: pointer;
+}
+.cursor-grab:hover {
+  cursor: grab;
+}
+.cursor-grab:active {
+  cursor: grabbing;
+}
+
+.hover-view {
+  display: none;
+}
+[class*="-card"] .method-dialog,
+[class*="-card"] .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  padding: 4px;
+}
+[class*="-card"] .close {
+  background-color: var(--color-white);
+}
+[class*="-card"] .method-dialog {
+  top: 24px;
+  padding: 0;
+}
+[class*="-card"] .btn-icon svg {
+  width: 15px;
+}
+
+.input-filter-view,
+.hover-absolute-view {
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  left: 0;
+  display: none;
+}
+
+.hover-top {
+  top: 100%;
+}
+.hover-right {
+  top: auto;
+  right: 100%;
+}
+.hover-left {
+  top: auto;
+  left: 100%;
+}
+.hover-bottom {
+  top: auto;
+  bottom: 100%;
+}
+.input-filter:hover .input-filter-view {
+  display: block;
+}
+
+.cursol-absolute-view:hover > .hover-absolute-view,
+.cursol-view:hover .hover-view {
+  display: block;
+}
+
+.viewer {
+  line-height: 1.6;
+}
+
+.viewer h2 {
+  padding: 8px 0;
+  font-size: 1.6rem;
+}
+
+.viewer h3 {
+  padding: 8px 0;
+  font-size: 1.2rem;
+}
+
+.viewer img {
+  max-width: 320px;
+  padding: 4px;
+  border: 1px solid var(--color-base);
+}
+
+.viewer pre {
+  margin-left: 4px;
+  padding: 4px;
+  background-color: var(--color-brock);
+  color: var(--color-white);
+}
+
+.write-img > .canvas-container > .canvas-container > .upper-canvas {
+  position: relative;
+  z-index: 12;
+}
+
