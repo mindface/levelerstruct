@@ -139,6 +139,7 @@ img {
 .btn-icon .path,
 .btn .path {
   fill: var(--color-white);
+  stroke: var(--color-white);
 }
 
 .btn-icon {
@@ -164,6 +165,7 @@ img {
 .btn-icon:hover .path,
 .btn:hover .path {
   fill: var(--color-base);
+  stroke: var(--color-base);
 }
 
 .label {
@@ -265,6 +267,11 @@ img {
   position: absolute;
   top: 0;
   left: 0;
+}
+.positionTopRight {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .input-filter-view {
   min-width: 420px;

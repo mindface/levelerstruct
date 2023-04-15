@@ -18,7 +18,6 @@ export function ImageMaker(props: Props) {
   const { type } = props;
   const [snedFileName, setSnedFileName] = useState("");
   const [fileName, setFileName] = useState("");
-  const [file64data, setFile64data] = useState("");
   const imgViewerArea = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -73,8 +72,6 @@ export function ImageMaker(props: Props) {
     <div className="content content-edit">
       <ImageUploader />
       <div className="fields p-2">
-        <div className="field pb-1">
-        </div>
         <div className="field pb-1">
           <FileInput
             id="filename"

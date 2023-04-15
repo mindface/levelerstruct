@@ -65,7 +65,7 @@ export const BaseDialog = forwardRef<ForwardRefHandle, Props>((props, ref) => {
   return (
     <div className="dialog-box">
       {dialogView && <dialog open className="dialog p-2" style={{zIndex: phase ?? "1"}}>
-        <div className="dialog-content maxvh80 over-scroll">{children}</div>
+        <div className="dialog-content maxh320 over-scroll">{children}</div>
         <div className="dialog-footer">
           { !closeDialogAction && <button
             className="btn"
