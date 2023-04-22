@@ -21,7 +21,6 @@ export function ProcessMake(props: Props) {
   const [filterText, setFilterText] = useState("");
   const [viewTagger, setViewTagger] = useState<string[]>([]);
   const [imagePath,setImagePath] = useState("");
-  const [increasedTags, setIncreasedTags] = useState<string[]>([]);
   const [filterTagger, setFilterTagger] = useState<string[]>([]);
   const [makeProcess, setMakeProcess] = useState<ProcessItem[]>([]);
   const [makeSimilarProcess, setMakeSimilarProcess] = useState<Inter>([]);

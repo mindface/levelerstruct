@@ -8,10 +8,17 @@ export interface Image {
   imagePath: string;
 }
 
+export interface Movie {
+  id: string;
+  imagePath: string;
+}
+
 interface StoreImage {
   images: Image[];
+  movies: Movie[];
 
   getImages: () => void;
+  getMovies: () => void;
   addImage: (process: Image) => void | { saveResult: string };
   updateImage: (images: Image) => void | { saveResult: string };
   deleteImage: (imageId: string) => void;
@@ -20,12 +27,22 @@ interface StoreImage {
 
 export const useStoreImage = create<StoreImage>((set, get) => ({
   images: [],
+  movies: [],
   getImages: () => {
     (async () => {
       const res = await FetchApi.GetFetch(`${url}/uploadStructure`);
       let list = res as Image[];
       set({
         images: list,
+      });
+    })();
+  },
+  getMovies: () => {
+    (async () => {
+      const res = await FetchApi.GetFetch(`${url}/uploadMovie`);
+      let list = res as Movie[];
+      set({
+        movies: list,
       });
     })();
   },

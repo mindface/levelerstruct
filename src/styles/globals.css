@@ -148,8 +148,18 @@ ul, ol {
   margin-bottom: 16px;
 }
 
+.min280 {
+  min-width: 280px;
+  width: 100%;
+}
+
 .maxhalf50 {
   max-width: 50%;
+  width: 100%;
+}
+
+.max180 {
+  max-width: 180px;
   width: 100%;
 }
 

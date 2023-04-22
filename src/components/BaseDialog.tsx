@@ -4,6 +4,7 @@ type Props = {
   children: ReactNode;
   type?: string;
   phase?: string;
+  openBtnView?: boolean;
   closeDialogAction?: () => void;
   submitAction?: () => void;
 };
@@ -18,7 +19,7 @@ const scrollTop = () => {
 }
 
 export const BaseDialog = forwardRef<ForwardRefHandle, Props>((props, ref) => {
-  const { children, type, phase, closeDialogAction } = props;
+  const { children, type, phase, openBtnView, closeDialogAction } = props;
   const [topNumber,setTopNumber] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
   const [dialogView,setDalogView] = useState(false);
@@ -44,7 +45,6 @@ export const BaseDialog = forwardRef<ForwardRefHandle, Props>((props, ref) => {
   };
   const closeAction = () => {
     setDalogView(false);
-    console.log("mofjej")
     removeBodyStyle();
   };
 
@@ -64,6 +64,13 @@ export const BaseDialog = forwardRef<ForwardRefHandle, Props>((props, ref) => {
 
   return (
     <div className="dialog-box">
+      {openBtnView && <button
+              className="btn"
+              onClick={(e) => {
+                e.preventDefault();
+                openAction();
+              }}
+            >open</button> }
       {dialogView && <dialog open className="dialog p-2" style={{zIndex: phase ?? "1"}}>
         <div className="dialog-content maxh320 over-scroll">{children}</div>
         <div className="dialog-footer">

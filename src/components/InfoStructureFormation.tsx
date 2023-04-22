@@ -6,19 +6,16 @@ import type { Process } from "../store/storeProcess"
 import { DraggableDiv } from "./parts/DraggableDiv";
 import { ProcessCards } from "./ProcessCards";
 
-type MmakeComparisons = {id: number,rate: number,process:Process}[]
 import { fabric } from 'fabric';
 
 export function InfoStructureFormation() {
   const [bgUrl,setBgUrl] = useState("");
-  const [runCounter,setRunCounter] = useState(0);
   const [renderRates,setRenderRates] = useState<{id:number;rate:string}[]>([]);
   const [fabricCanvas,setFabricCanvas] = useState(new fabric.Canvas(''));
   // const fabricElement = useRef(new fabric.Canvas(''));
 
   const structureArea = useRef<HTMLDivElement>(null);
   const writeCanvas = useRef<HTMLCanvasElement>(null);
-  const writeCanvasContent = useRef<HTMLDivElement>(null);
   const { connects, workerInfo, connectMethod, getWorker } = useStoreConnect((store) => ({
     connects: store.connects,
     workerInfo: store.workerInfo,

@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { Task } from "../store/store";
-import { ImageUploader } from "./ImageUploader";
+import { FileUploader } from "./FileUploader";
 import { FieldInput } from "./parts/FieldInput";
 import { FileInput } from "./parts/FileInput";
 const url = process.env.NEXT_PUBLIC_DB_URL;
@@ -21,7 +21,6 @@ export function ImageMaker(props: Props) {
   const imgViewerArea = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
-  const [imageData,setImageData] = useState<File>();
 
   const updateAction = () => {}
   const addAction = () => {}
@@ -70,9 +69,10 @@ export function ImageMaker(props: Props) {
 
   return (
     <div className="content content-edit">
-      <ImageUploader />
+      <FileUploader />
       <div className="fields p-2">
         <div className="field pb-1">
+          <p>動画を画像として切り出して保存します。</p>
           <FileInput
             id="filename"
             label="filename"

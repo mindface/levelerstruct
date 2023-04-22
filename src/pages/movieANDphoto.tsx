@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 
 import { ImageListView } from "../components/ImageListView";
 import { ImageMaker } from "../components/ImageMaker";
+import { FileUploader } from "../components/FileUploader";
 
 export default function Method() {
   const [tab, setTab] = useState("view");
@@ -22,15 +23,23 @@ export default function Method() {
       </Head>
       <main>
         <div className="btn-area">
-          <button className="btn" onClick={() => tabAction("view")}>
-            list
+          <button className="btn" onClick={() => tabAction("viewImage")}>
+            list(image)
           </button>
-          <button className="btn" onClick={() => tabAction("add")}>
-            add
+          <button className="btn" onClick={() => tabAction("viewMovie")}>
+            list(movie)
+          </button>
+          <button className="btn" onClick={() => tabAction("photo")}>
+            add (photo)
+          </button>
+          <button className="btn" onClick={() => tabAction("movie")}>
+            add (movie)
           </button>
         </div>
-        {tab === "view" && <ImageListView type={tab} />}
-        {tab === "add" && <ImageMaker type={tab} />}
+        {tab === "viewImage" && <ImageListView type={tab} />}
+        {tab === "viewMovie" && <ImageListView type={tab} />}
+        {tab === "photo" && <ImageMaker type={tab} />}
+        {tab === "movie" && <FileUploader type={tab} />}
       </main>
     </>
   );

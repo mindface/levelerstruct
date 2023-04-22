@@ -33,7 +33,6 @@ export function ProcessCards(props: Props) {
   
   useEffect(() => {
     setMakeProcess(processItems);
-    console.log(processItems)
   }, [processItems]);
 
   useEffect(() => {
@@ -93,12 +92,23 @@ export function ProcessCards(props: Props) {
     setMakebrnachs([...makebrnachs,{id:makebrnachs.length+1,processItem: list}]);
   }
 
+  const resutSettings = (items: ProcessItem[]) => {
+    const number = makeProcess.length;
+    let counter = 0;
+    items.forEach((item) => {
+      (item.adjustmentNumbers as number[])?.forEach((addItem:number) => {
+        counter = counter + addItem;
+      })
+    })
+    return counter;
+  }
+
   return (
     <div>
       <div className="select-method over-scroll flex-nw scroll-shadow">
         <div className="minh150 flex-nw p-1" style={{ minWidth: `${makeProcess.length * 320}px` }}>
           {makeProcess.map((item, index) => (
-            <div key={index} className="method-card max320 box-shadow p-1 positionbase">
+            <div key={`${item.methodId}-${index}`} className="method-card max320 box-shadow p-1 positionbase">
               {type === "edit" && <span
                 className="close cursor box-shadow"
                 onClick={() => deleteChangeAction(index)}
@@ -113,13 +123,13 @@ export function ProcessCards(props: Props) {
                 </div>
                 { type !== "connection" && <div className="field pb-1">
                   <div className="similar-method positionbase cursol-absolute-view p-1">
-                   <button className="btn f-small" onClick={() => brnachAction(item)}>
-                      比較プロット作成
-                    </button>
+                    <span className="background-sub-color d-inline p-1 f-small" onClick={() => brnachAction(item)}>
+                      比較プロット作成 
+                    </span>
                     <div className="over-scroll hover-absolute-view maxh90 box-shadow">
                       <ul className="list background-white">
                         {brnachAction(item).map((brnachItem,k) => {
-                          return (<li key={k} className="p-1" onClick={() => alliesMethod(brnachItem,index)}><div className="">{brnachItem.title}</div></li>);
+                          return (<li key={`brnachItem${k}`} className="p-1" onClick={() => alliesMethod(brnachItem,index)}><div className="">{brnachItem.title}</div></li>);
                         })}
                       </ul>
                     </div>
@@ -142,19 +152,22 @@ export function ProcessCards(props: Props) {
                     />}
                 </div>
                 <div className="field pb-1">
-                  {(item.adjustmentNumbers as number[])?.map((adjustmentNumber:number) => {
-                    return <span className="d-b p-1">{adjustmentNumber+(rate ?? 1)}</span>
+                  {(item.adjustmentNumbers as number[])?.map((adjustmentNumber:number,index:number) => {
+                    return <span key={`adjustmentNumber${index}`} className="d-b p-1">{adjustmentNumber+(rate ?? 0)}</span>
                   })}
                 </div>
               </div>
             </div>
           ))}
+          <div className="result-number p-1 background-white positionTopLeft box-shadow">
+            adjustmentNumbers | {resutSettings(makeProcess)}
+          </div>
         </div>
       </div>
       {makebrnachs.map((brnachItem) => <div key={brnachItem.id} className="select-method over-scroll flex-nw scroll-shadow">
         <div className="minh150 flex-nw p-1" style={{ minWidth: `${makeProcess.length * 320}px` }}>
           {brnachItem.processItem.map((item, index) => (
-            <div key={index} className="method-card max320 box-shadow p-1 positionbase">
+            <div key={`processItem${index}`} className="method-card max320 box-shadow p-1 positionbase">
               {item.methodId}
               {type === "edit" && <span
                 className="close cursor box-shadow"
@@ -201,6 +214,9 @@ export function ProcessCards(props: Props) {
               </div>
             </div>
           ))}
+          <div className="result-number p-1 background-white positionTopLeft box-shadow">
+            adjustmentNumbers | {resutSettings(brnachItem.processItem)}
+          </div>
         </div>
       </div>)}
   </div>)

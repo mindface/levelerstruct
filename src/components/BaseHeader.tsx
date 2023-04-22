@@ -4,7 +4,6 @@ import Image from "next/image";
 import logo from "../images/logo.png";
 import { PhotoDialog } from "./PhotoDialog";
 import { useStoreNamingDefinition } from "../store/storeNamingConvention";
-import type {  } from "../store/storeNamingConvention";
 import { BaseDialog, ForwardRefHandle } from "./BaseDialog";
 import { FieldInput } from "./parts/FieldInput";
 
