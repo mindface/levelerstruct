@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { FetchApi } from "../util/fetchApi";
 const url = process.env.NEXT_PUBLIC_DB_URL;
 
+export type RateItem = {id:number;rate:string;value:string;path: string;};
 export interface ProcessItem {
   executionId: string;
   title: string;
@@ -19,6 +20,27 @@ export interface Process {
   detail: string;
   mainImage: string;
   processdata: ProcessItem[];
+  connectId: string;
+}
+
+export interface RateProcessItem {
+  executionId: string;
+  title: string;
+  detail: string;
+  methodId: string;
+  structure: string;
+  adjustmentNumbers?: number[] | string;
+  tagger: string;
+  ratedata: RateItem[]
+}
+
+export interface RateProcess {
+  id: string;
+  title: string;
+  detail: string;
+  mainImage: string;
+  processdata: ProcessItem[];
+  reProcessdata: RateProcessItem[];
   connectId: string;
 }
 

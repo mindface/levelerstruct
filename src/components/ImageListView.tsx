@@ -9,16 +9,16 @@ type Props = {
 };
 
 export function ImageListView(props: Props) {
-  const { images, getImages, deleteImage } = useStoreImage((store) => ({
+  const { type, item, removeDialog } = props;
+  const { images, movies, getImages, getMovies, deleteImage } = useStoreImage((store) => ({
     images: store.images,
+    movies: store.movies,
     getImages: store.getImages,
+    getMovies: store.getMovies,
     deleteImage: store.deleteImage
   }));
   const [listImage, setListImage] = useState<IImage[]>([]);
-
-  const type = props.type;
-  const task = props.item;
-  const removeDialog = props.removeDialog ?? (() => {});
+  const removeDialogAction = removeDialog ?? (() => {});
 
   const deleteAction = (fileName:string) => {
     if(confirm("この作業は取り消せません")) {
@@ -37,8 +37,13 @@ export function ImageListView(props: Props) {
   }, [images]);
 
   useEffect(() => {
-    getImages();
-  },[]);
+    if( type === "viewImage" ) {
+      getImages();
+    }
+    if( type === "viewMovie" ) {
+      getMovies();
+    }
+  },[type]);
 
   const reFileName = (path: string) => {
     return path.split("/").pop();
@@ -49,28 +54,48 @@ export function ImageListView(props: Props) {
       <div className="p-1">
         <div className="title">タイトル - 動画から形成画像リスト</div>
       </div>
-      <ul className="list image-list flex">
+      { type === "viewImage" && <ul className="list image-list flex">
         {(images ?? []).map((item) => <li key={item.id} className="item positionbase">
-          <div className="actions">
-            {type !== "edit" && <button
-              onClick={() => deleteAction(reFileName(item.imagePath) ?? "")}
-              className="btn f-small"
-            >
-               delete
-            </button>}
-            <button
-              onClick={() => copyAction((item.imagePath) ?? "")}
-              className="btn f-small"
-            >
-               copy
-            </button>
-          </div>
           <div className="image-box">
             <img className="img" src={item.imagePath} alt="" />
           </div>
+          <div className="actions">
+            <button
+              onClick={() => deleteAction(reFileName(item.imagePath) ?? "")}
+              className="btn f-small"
+            > delete</button>
+            <button
+              onClick={() => copyAction((item.imagePath) ?? "")}
+              className="btn f-small"
+            >copy</button>
+          </div>
           <p className="name p-1">{reFileName(item.imagePath)}</p>
         </li> )}
-      </ul>
+      </ul>}
+      { type === "viewMovie" && <ul className="list image-list flex">
+        {(movies ?? []).map((item) => <li key={item.id} className="item positionbase">
+          <div className="image-box">
+            <video className="video" width={340} height={180} src={item.imagePath} controls></video>
+          </div>
+          <div className="actions">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                deleteAction(reFileName(item.imagePath) ?? "");
+              }}
+              className="btn f-small"
+            >delete</button>
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                copyAction((item.imagePath) ?? "");
+              }}
+              className="btn f-small"
+            >copy</button>
+          </div>
+          <p className="name p-1">{reFileName(item.imagePath)}</p>
+        </li> )}
+      </ul>}
     </div>
   );
 }

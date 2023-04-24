@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useStore, Task } from "../store/store";
 import { useStoreProcess, Process, ProcessItem } from "../store/storeProcess";
-import downSmall from "../images/down-small.svg";
-import Image from "next/image";
 import { FieldInput } from "./parts/FieldInput";
+import { ProcessSelect } from "./parts/ProcessSelect";
 
 type Props = {
   type: string;
@@ -25,8 +24,6 @@ export function TaskEdit(props: Props) {
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [processId, setProcessId] = useState("");
-  const similar = useRef("");
-  const [selectMethodIds, setSelectMethodIds] = useState<string[]>([]);
   const [runNumber, setRunNumber] = useState(0);
   const [purposeAchieved, setPurposeAchieved] = useState(0);
   const [selectProcess, setSelectProcess] = useState<Process>();
@@ -74,47 +71,22 @@ export function TaskEdit(props: Props) {
     setProcessId(task?.useProcessId ?? "");
     setRunNumber(task?.runNumber ?? 0);
     setPurposeAchieved(task?.purposeAchieved ?? 0);
-    const list: string[] = [];
-    selectProcess?.processdata.forEach((selectItem) => {
-      list.push(selectItem.methodId);
-    });
-    setSelectMethodIds(list);
   }, [task,process]);
 
   useEffect(() => {
     getProcess();
   },[]);
 
-  const setClassSimilar = (items: ProcessItem[]) => {
-    let setClass = "";
-    (items ?? []).forEach((item) => {
-      if(selectMethodIds.includes(item.methodId)){
-        setClass = "similar ";
-        similar.current = "同じ方法を利用しているプロセスがあります。";
-      }
-    });
-    return setClass;
-  };
-
   return (
     <div className="content content-edit">
       <div className="fields p-2">
         <div className="field pb-1">
-          <div className="process-box positionbase cursol-absolute-view">
-            <p className="icon-label d-inline border p-1">選択利用方法 <Image src={downSmall} alt="" /></p>
-            <p className="d-inline p-1">{selectProcess?.title}</p>[{similar.current}] 右の印があります [^]
-            <div className="maxh320 over-scroll process-selector box-shadow p-1 hover-absolute-view background-white">
-              {process.map((item,index) => 
-                <div
-                  key={index}
-                  className={`divhover p-1 ${setClassSimilar(item.processdata)}${item.id === processId ? "select" : ""}`}
-                  onClick={() => {
-                    selectAction(item);
-                 }}
-                >{item.title}</div>
-              )}
-            </div>
-          </div>
+          <ProcessSelect
+            processId={processId}
+            eventChange={(item) => {
+              selectAction(item);
+            }}
+          />
         </div>
         <div className="field pb-1">
           <FieldInput

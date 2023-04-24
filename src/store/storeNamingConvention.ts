@@ -43,8 +43,10 @@ export const useStoreNamingDefinition = create<StoreNamingDefinition>((set, get)
     { id: "3", name : "method", path: "method", structure: "" },
     { id: "4", name : "movieANDphoto", path: "movieANDphoto", structure: "" },
     { id: "5", name : "selector", path: "selector", structure: "" },
-    { id: "6", name : "connection", path: "connection", structure: "" },
-    { id: "7", name : "structureFormation", path: "structureFormation", structure: "" },
+    { id: "6", name : "limitInfo", path: "limitInfo", structure: "" },
+    { id: "7", name : "connection", path: "connection", structure: "" },
+    { id: "8", name : "structureFormation", path: "structureFormation", structure: "" },
+    { id: "9", name : "higherRank", path: "higherRank", structure: "" },
   ],
   updateUiDefinition: (uiDefinitions: UiDefinition[]) => {
     set({

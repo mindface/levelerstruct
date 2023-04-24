@@ -9,10 +9,6 @@ export function PhotoDialog() {
     element.current?.openDialog();
   };
 
-  const closeAction = () => {
-    element.current?.closeDialog();
-  };
-
   return (
     <div className="photo-box">
       <button
@@ -26,7 +22,7 @@ export function PhotoDialog() {
         </svg>
       </button>
       <BaseDialog ref={element} phase="20">
-        <ImageListView type="view" />
+        <ImageListView type="viewImage" />
       </BaseDialog>
     </div>
   );
