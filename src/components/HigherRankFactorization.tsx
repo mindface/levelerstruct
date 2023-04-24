@@ -50,7 +50,6 @@ export function HigherRankFactorization() {
         processItem: setItem
       });
     });
-    console.log(list);
     setConceptualizations(list);
   },[tasks]);
 
@@ -99,7 +98,7 @@ export function HigherRankFactorization() {
         {conceptualizations.map((item,index) => 
           <div
             key={item.id}
-            className="max180 pb-2"
+            className="max180 p-2"
             data-info={index}
             draggable={true}
             onDragEnd={(e) => {

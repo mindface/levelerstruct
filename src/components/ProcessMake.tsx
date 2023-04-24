@@ -6,13 +6,29 @@ import { useStoreMethod, Method } from "../store/storeMethod";
 import plusCircle from "../images/plus-circle.svg";
 import { FieldInput } from "./parts/FieldInput";
 
+type SetRate = {indexId:string;methodId:string,items:number[]};
+type SetRateList = SetRate[];
+
+interface ProcessEvaluation extends ProcessItem {
+  evaluation: number[];
+  rateNumber:number;
+  allNumber:number;
+  setRate?: SetRateList
+}
+
+type EvaluationsRate = {
+  rateNumber:number;
+  allNumber:number;
+  setRate:SetRate;
+}
+
 type Props = {
   type: string;
   process?: Process;
   removeTab?: () => void;
 };
 
-type Inter = {id:string,items: ProcessItem[]}[]
+type Inter = {id:string,items:ProcessItem[]}[];
 
 export function ProcessMake(props: Props) {
   const [title, setTitle] = useState("");
@@ -25,6 +41,17 @@ export function ProcessMake(props: Props) {
   const [makeProcess, setMakeProcess] = useState<ProcessItem[]>([]);
   const [makeSimilarProcess, setMakeSimilarProcess] = useState<Inter>([]);
   const [listMethods, setListMethod] = useState<Method[]>([]);
+  const [evaluations,setEvaluations] = useState<ProcessEvaluation[]>([]);
+  const [evaluationsRate,setEvaluationsRate] = useState<EvaluationsRate>({
+      rateNumber: 0,
+      allNumber: 0,
+      setRate:{
+        indexId: "",
+        methodId: "",
+        items:[]
+      }
+    }
+  );
   const editType = props.type;
   const _process = props.process;
   const removeTab = props.removeTab ?? (() => {});
@@ -34,7 +61,7 @@ export function ProcessMake(props: Props) {
     getMethod: store.getMethod
   }));
 
-  const { process, getProcess, addProcess, updateProcess } = useStoreProcess((store) => ({
+  const { process, addProcess, updateProcess } = useStoreProcess((store) => ({
     process: store.process,
     getProcess: store.getProcess,
     addProcess: store.addProcess,
@@ -128,10 +155,8 @@ export function ProcessMake(props: Props) {
   }
 
   const increasedProductionAction = () => {
-    console.log(makeProcess)
     const list:Inter = [];
     makeProcess.forEach((item,k) => {
-      let setId = "";
       list.push({
         id: `re${k+1}`,
         items: []
@@ -139,28 +164,52 @@ export function ProcessMake(props: Props) {
       methods.forEach((method,m) => {
         if(item.tagger?.indexOf(method.tagger) > -1) {
           list[k].items.push({
-              executionId: "",
-              title: method.title ?? "",
-              detail: method.detail ?? "",
-              methodId: method.methodId ?? "",
-              structure: method.structure ?? "",
-              tagger: method.tagger ?? "",
-              adjustmentNumbers: method.adjustmentNumbers ?? [],
-            });
+            executionId: "",
+            title: method.title ?? "",
+            detail: method.detail ?? "",
+            methodId: method.methodId ?? "",
+            structure: method.structure ?? "",
+            tagger: method.tagger ?? "",
+            adjustmentNumbers: method.adjustmentNumbers ?? [],
+          });
          }
       })
     });
     const _list: any = [];
-      let __list: any = [];
-      list[0].items.forEach((d,l) => {
-        __list = [d];
-        list[l]?.items?.forEach((item,n) => {
-          if(n === 0) return;
-          __list.push(item);
-        });
-        _list.push(__list);
+    let __list: any = [];
+    list[0].items.forEach((d,l) => {
+      __list = [d];
+      list[l]?.items?.forEach((item,n) => {
+        if(n === 0) return;
+        __list.push(item);
       });
-    // makeSimilarProcess
+      _list.push(__list);
+    });
+  }
+
+  const evaluationSetAction = (items: ProcessItem[]) => {
+    const evaluationslist:ProcessEvaluation[] = [];
+    const evaluationsRatelist:SetRateList = [];
+    items.forEach((item: ProcessItem,_:number) => {
+      evaluationsRatelist.push({
+          indexId: String(_),
+          methodId:item.methodId,
+          items: []
+        });
+      evaluationslist.push({
+          ...item,
+          evaluation:[],
+          rateNumber: 0,
+          allNumber: 0,
+          methodId:item.methodId
+        });
+    });
+    setEvaluations(evaluationslist);
+    setEvaluationsRate({...evaluationsRate,setRate: {
+      indexId: "",
+      methodId:"",
+      items: []
+    }});
   }
 
   useEffect(() => {
@@ -172,14 +221,43 @@ export function ProcessMake(props: Props) {
       setTitle(_process.title ?? "");
       setDetail(_process.detail ?? "");
       setConnectId(_process.connectId ?? "");
-      setMakeProcess(_process.processdata ?? "");
+      setMakeProcess(_process.processdata ?? []);
       setImagePath(_process.mainImage ?? "");
+      evaluationSetAction(_process.processdata ?? []);
+
     }
   }, [getMethod, _process]);
-
+  
   useEffect(() => {
     setMethodAction();
   },[filterTagger,filterText,methods]);
+
+  const updateEvaluationsRate = (type:string,value:string) => {
+    if(type !== "evaluationsRate" ) {
+      let setNumber = Number(value);
+      if(evaluationsRate.rateNumber !== 0) {
+        setNumber = 0;
+      }
+      setEvaluationsRate({
+        ...evaluationsRate,
+        [type]: setNumber
+      });
+    }
+  }
+
+  const evaluationsRateSetRateAction = (action: string, methodId: string, indexId: number, value?: string) => {
+    const item = evaluationsRate.setRate
+      let setItems = [...item.items,0];
+      if(action === "delete") {
+        setItems = item?.items.slice(0,-1) ?? [];
+      }
+      if(action === "update") {
+        const l = evaluationsRate.rateNumber !== 0 ? Number(value) * evaluationsRate.rateNumber : Number(value);
+        setItems = item?.items.map((item,_) => _ === indexId ? l : item );
+      }
+      console.log(evaluationsRate)
+    setEvaluationsRate({...evaluationsRate,setRate: { ...item, items: setItems }});
+  }
 
   return (
     <div className="fields p-2">
@@ -210,7 +288,7 @@ export function ProcessMake(props: Props) {
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setImagePath(e.target?.value)}
         />
         <div className="max320">
-          {imagePath !=="" && <img src={imagePath} alt="" />}
+          {imagePath !== "" && <img src={imagePath} alt="" />}
         </div>
       </div>
       <div className="field pb-1">
@@ -231,9 +309,7 @@ export function ProcessMake(props: Props) {
                   onClick={() => {
                     selectTagger(item);
                   }}
-                >
-                  {item}
-                </span>
+                >{item}</span>
               ))}
             </div>
           </div>
@@ -265,6 +341,55 @@ export function ProcessMake(props: Props) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+        <div className="over-scroll flex-nw scroll-shadow">
+          <div className="box">
+            <FieldInput
+              type="number"
+              id="evaluationsRateNumber"
+              label="数値増減(0.1)"
+              className="small"
+              value={String(evaluationsRate.rateNumber)}
+              step={0.1}
+              min={0}
+              eventChange={(value: string) => {
+                updateEvaluationsRate("rateNumber",value);
+              }}
+            />
+          </div>
+          <div className="minh150 flex-nw p-1" style={{ minWidth: `${makeProcess.length * 320}px`}}>
+            {evaluations.map((item,_) => <div key={item.methodId+_} className="method-card max320 box-shadow p-1 positionbase">
+              <h3 className="title">{item.title}</h3>
+              <div>
+                <div className="btn-actions">
+                  <button
+                    className="btn"
+                    onClick={() => evaluationsRateSetRateAction("add",item.methodId,_)}
+                  >+</button>
+                  <button
+                    className="btn"
+                    onClick={() => evaluationsRateSetRateAction("delete",item.methodId,_)}
+                  >-</button>
+                </div>
+                {(evaluationsRate.setRate?.items ?? []).map((rate,__) => <div key={`${_}-${__}`} className="d-inline">
+                    {rate}                
+                  <FieldInput
+                    type="number"
+                    id={`evaluationsRate${__}`}
+                    label={`増減${__}`}
+                    className="small"
+                    value={String(rate)}
+                    step={0.01}
+                    min={0}
+                    eventChange={(value: string) => {
+                      evaluationsRateSetRateAction("update",item.methodId,__,value)
+                    }}
+                  />
+                  </div>
+                )}
+              </div>
+            </div>)}
           </div>
         </div>
         <ProcessCards

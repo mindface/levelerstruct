@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useStoreProcess, Process, ProcessItem } from "../../store/storeProcess";
-import downSmall from "../../images/down-small.svg";
-import Image from "next/image";
 
 interface Props {
   value?: string;
@@ -10,7 +8,7 @@ interface Props {
   eventChange?: (item: Process) => void
 }
 
-export function ProcessSelect(props: Props) {
+export function ProcessSelect(props: Props): JSX.Element {
   const { processId, eventChange } = props;
   const [processViewId, setProcessViewId] = useState(processId ?? "");
   const { process, getProcess } = useStoreProcess((store) => ({

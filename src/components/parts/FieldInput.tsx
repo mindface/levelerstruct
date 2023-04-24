@@ -9,8 +9,9 @@ interface Props {
   step?: number;
   min?: number;
   max?: number;
+
   viewValue?: boolean;
-  eventChange?: (value: string) => void
+  eventChange?: (value: string) => void;
 }
 
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement> 
@@ -25,7 +26,7 @@ export function FieldInput(props: Props) {
   },[]);
 
   return (
-    <div className="input-box pt-1 pb-1">
+    <div className="input-box d-inline pt-1 pb-1">
       <label htmlFor={`input${id}`} className="label flex-nw positionbase">
         {label && <span className="labeltext d-inline">{label}</span> }
         { (type !== "number" || !type) && <input
@@ -42,7 +43,7 @@ export function FieldInput(props: Props) {
           ref={input}
           id={`input${id}`}
           defaultValue={value ?? ""}
-          className="input"
+          className={`input ${className}`}
           type={type ?? "text"}
           max={max}
           min={min}
