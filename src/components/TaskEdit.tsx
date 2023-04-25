@@ -19,7 +19,7 @@ export function TaskEdit(props: Props) {
   }));
   const { process, getProcess } = useStoreProcess((store) => ({
     process: store.process,
-    getProcess: store.getProcess
+    getProcess: store.getProcess,
   }));
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
@@ -39,7 +39,7 @@ export function TaskEdit(props: Props) {
       detail: detail,
       runNumber: runNumber,
       purposeAchieved: purposeAchieved,
-      useProcessId: selectProcess?.id ?? ""
+      useProcessId: selectProcess?.id ?? "",
     });
   };
 
@@ -51,19 +51,19 @@ export function TaskEdit(props: Props) {
       detail: detail,
       runNumber: runNumber,
       purposeAchieved: purposeAchieved,
-      useProcessId: selectProcess?.id ?? ""
+      useProcessId: selectProcess?.id ?? "",
     });
     removeDialog();
   };
 
   const selectAction = (item: Process) => {
     setSelectProcess(item);
-  }
+  };
 
   useEffect(() => {
-    if(process.length) {
+    if (process.length) {
       process.forEach((item) => {
-        if(item.id === task?.useProcessId) selectAction(item);
+        if (item.id === task?.useProcessId) selectAction(item);
       });
     }
     setTitle(task?.title ?? "");
@@ -71,11 +71,11 @@ export function TaskEdit(props: Props) {
     setProcessId(task?.useProcessId ?? "");
     setRunNumber(task?.runNumber ?? 0);
     setPurposeAchieved(task?.purposeAchieved ?? 0);
-  }, [task,process]);
+  }, [task, process]);
 
   useEffect(() => {
     getProcess();
-  },[]);
+  }, []);
 
   return (
     <div className="content content-edit">

@@ -6,7 +6,7 @@ type Props = {
   method?: Method;
 };
 
-export function MethodEdit(props: Props) {
+export function ToolsEdit(props: Props) {
   const { methods, addMethod, updateMethod } = useStoreMethod((store) => ({
     methods: store.methods,
     addMethod: store.addMethod,

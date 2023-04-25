@@ -17,7 +17,7 @@ interface WorkerInfo {
   experience: string;
   purposeRate: string;
   case: string;
-  authorityMethod: []
+  authorityMethod: [];
 }
 
 export interface Connect {
@@ -61,12 +61,12 @@ export const useStoreConnect = create<StoreConnect>((set, get) => ({
     experience: "0",
     purposeRate: "0",
     case: "0",
-    authorityMethod: []
+    authorityMethod: [],
   },
   modelInfo: {
     id: "00",
     mdoelId: "00",
-    setId: "00"    
+    setId: "00",
   },
   connectMethod: {
     id: "1",
@@ -78,7 +78,7 @@ export const useStoreConnect = create<StoreConnect>((set, get) => ({
   },
   getWorker: () => {
     (async () => {
-      const res = await FetchApi.GetFetch('/workerInfo.json');
+      const res = await FetchApi.GetFetch("/workerInfo.json");
       const info = res as WorkerInfo;
       set({
         workerInfo: info,
@@ -87,7 +87,7 @@ export const useStoreConnect = create<StoreConnect>((set, get) => ({
   },
   getModel: () => {
     (async () => {
-      const res = await FetchApi.GetFetch('/modelInfo.json');
+      const res = await FetchApi.GetFetch("/modelInfo.json");
       const info = res as ModelInfo;
       set({
         modelInfo: info,
@@ -98,7 +98,7 @@ export const useStoreConnect = create<StoreConnect>((set, get) => ({
     set({
       connectMethod: mehtod,
     });
-    return 'end'
+    return "end";
   },
   getConnect: () => {
     (async () => {

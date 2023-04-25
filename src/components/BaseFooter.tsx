@@ -16,12 +16,12 @@ const pathIds = [
 
 export function BaseFooter() {
   const { process } = useStoreProcess((store) => ({
-    process: store.process
+    process: store.process,
   }));
   const { methods } = useStoreMethod((store) => ({
     methods: store.methods,
   }));
-  
+
   return (
     <footer className="footer p-1 background-color">
       <div className="info">

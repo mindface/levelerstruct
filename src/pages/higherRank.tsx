@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { HigherRankFactorization } from "../components/HigherRankFactorization";
 
 export default function higherRank() {
-
   return (
     <>
       <Head>

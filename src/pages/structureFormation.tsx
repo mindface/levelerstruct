@@ -1,15 +1,8 @@
 import Head from "next/head";
-import { useState, useEffect } from "react";
 
 import { InfoStructureFormation } from "../components/InfoStructureFormation";
 
 export default function structureFormation() {
-  const [tab, setTab] = useState("list");
-  useEffect(() => {}, []);
-
-  const tabAction = (tabId: string) => {
-    setTab(tabId);
-  };
 
   return (
     <>

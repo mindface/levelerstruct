@@ -17,18 +17,18 @@ const pathIds = [
 
 export function BaseFlash() {
   const { process } = useStoreProcess((store) => ({
-    process: store.process
+    process: store.process,
   }));
   const { methods } = useStoreMethod((store) => ({
     methods: store.methods,
   }));
-  
+
   return (
     <footer className="footer p-1 background-color">
       <div className="info">
         {/* <div className="tasks">tasks | {tasks && tasks.length}</div>                 */}
-        <div className="process">process | {process.length}</div>                
-        <div className="methods">methods | {methods.length}</div>                
+        <div className="process">process | {process.length}</div>
+        <div className="methods">methods | {methods.length}</div>
       </div>
       <ul className="list flex p-2">
         {pathIds.map((item, index) => (

@@ -30,7 +30,7 @@ const getDefaultInitialState = () => ({
       detail: "node01",
       runNumber: 0,
       purposeAchieved: 0,
-      useProcessId: "node01"
+      useProcessId: "node01",
     },
   ],
 });
@@ -51,7 +51,7 @@ export const initializeStore = (preloadedState: Partial<StoreInterface> = {}) =>
   return createStore<StoreInterface>((set, get) => ({
     ...getDefaultInitialState(),
     ...preloadedState,
-  
+
     getTask: () => {
       (async () => {
         const res = await FetchApi.GetFetch(`${url}/getTask`);

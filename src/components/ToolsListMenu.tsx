@@ -11,7 +11,7 @@ type Props = {
   item: Method;
 };
 
-export function MethodListMenu(props: Props) {
+export function ToolsListMenu(props: Props) {
   const { deleteMethod } = useStoreMethod((store) => ({
     updateMethod: store.updateMethod,
     deleteMethod: store.deleteMethod,
