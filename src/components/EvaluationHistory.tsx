@@ -3,7 +3,8 @@ import { ProcessListMenu } from "./ProcessListMenu";
 import { useStoreProcess, Process } from "../store/storeProcess";
 import { averageMethodItem } from "../util/lib";
 
-export function ProcessListView() {
+
+export function EvaluationHistory() {
   const { process, getProcess } = useStoreProcess((store) => ({
     process: store.process,
     getProcess: store.getProcess,
@@ -19,7 +20,7 @@ export function ProcessListView() {
       aj = aj + averageMethodItem(processdata);
       // console.log(averageMethodItem(processdata))
     });
-    return aj
+    return aj;
   }
 
   return (

@@ -7,10 +7,12 @@ import { BaseFooter } from "../components/BaseFooter";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <StoreProvider {...pageProps.initialZustandState}>
-      <BaseHeader />
-      <Component {...pageProps} />
-      <BaseFooter />
-    </StoreProvider>
+    <div className="wrapper">
+      <StoreProvider {...pageProps.initialZustandState}>
+        <BaseHeader />
+        <Component {...pageProps} />
+        <BaseFooter />
+      </StoreProvider>
+    </div>
   );
 }

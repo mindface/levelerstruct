@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { BaseDialog, ForwardRefHandle } from "./BaseDialog";
 import { Method } from "../store/storeMethod";
 import { tagView } from "../util/lib";

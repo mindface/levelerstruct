@@ -1,8 +1,6 @@
-import { useEffect } from "react";
 import Link from "next/link";
 import { useStoreMethod } from "../store/storeMethod";
 import { useStoreProcess } from "../store/storeProcess";
-import { useStore } from "../store/store";
 
 const pathIds = [
   { id: 1, path: "task" },

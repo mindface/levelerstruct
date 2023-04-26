@@ -20,7 +20,7 @@ export function BaseHeader() {
   };
 
   const setUiDefinitions = (changeNumber: string, value: string) => {
-    const list = uiDefinitions.map((item) => {
+    const list = headerUi.map((item) => {
       if (item.id === changeNumber) {
         return { ...item, name: value };
       }

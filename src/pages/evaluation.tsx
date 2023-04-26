@@ -1,16 +1,20 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 
-import { MethodListView } from "../components/MethodListView";
-import { MethodEdit } from "../components/MethodEdit";
+import { EvaluationSetting } from "../components/EvaluationSetting";
+import { EvaluationHistory } from "../components/EvaluationHistory";
 import { getPath } from "../util/lib";
 
-export default function Method() {
+export default function Evaluation() {
   const [tab, setTab] = useState("view");
   useEffect(() => {}, []);
 
   const tabAction = (tabId: string) => {
     setTab(tabId);
+  };
+
+  const chnageTab = () => {
+    setTab("list");
   };
 
   return (
@@ -23,15 +27,15 @@ export default function Method() {
       </Head>
       <main>
         <div className="btn-area">
-          <button className="btn" onClick={() => tabAction("view")}>
-            list
+          <button className="btn" onClick={() => tabAction("setting")}>
+            setting
           </button>
           <button className="btn" onClick={() => tabAction("add")}>
-            add
+            history
           </button>
         </div>
-        {tab === "view" && <MethodListView />}
-        {tab === "add" && <MethodEdit type={tab} />}
+        {tab === "setting" && <EvaluationSetting type={tab} />}
+        {tab === "view" && <EvaluationHistory />}
       </main>
     </>
   );

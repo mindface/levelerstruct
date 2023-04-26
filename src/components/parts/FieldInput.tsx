@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 
 interface Props {
   value?: string;
+  name?: string;
   className?: string;
   type?: string;
   id: string;
@@ -17,12 +18,13 @@ interface Props {
 type InputChangeEvent = React.ChangeEvent<HTMLInputElement>;
 
 export function FieldInput(props: Props) {
-  const { value, className, type, id, label, step, min, max, viewValue, eventChange } = props;
+  const { value, name, className, type, id, label, step, min, max, viewValue, eventChange } = props;
   const changeAction = eventChange ?? (() => {});
   const input = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (step) input.current?.setAttribute("step", String(step));
+    if (name) input.current?.setAttribute("name", name);
   }, []);
 
   return (

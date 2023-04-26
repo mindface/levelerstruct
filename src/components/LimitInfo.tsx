@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { FieldInput } from "./parts/FieldInput";
 import { RateItem, RateProcess, Process } from "../store/storeProcess";
-import { useRouter } from "next/router";
 import { BaseDialog, ForwardRefHandle } from "./BaseDialog";
 import { sums } from "../wasm/wasm_imager_bg.wasm";
 import { ProcessSelect } from "./parts/ProcessSelect";

@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Task } from "../store/store";
 import { FileUploader } from "./FileUploader";
 import { FieldInput } from "./parts/FieldInput";

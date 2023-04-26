@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ProcessCards } from "./ProcessCards";
 import { useStoreProcess, Process, ProcessItem } from "../store/storeProcess";
 import { useStoreMethod, Method } from "../store/storeMethod";
 import plusCircle from "../images/plus-circle.svg";
 import { FieldInput } from "./parts/FieldInput";
+import { setPageActionInfo } from "../util/lib";
 
 type SetRate = { indexId: string; methodId: string; items: number[] };
 type SetRateList = SetRate[];
@@ -14,7 +16,7 @@ interface ProcessEvaluation extends ProcessItem {
   rateNumber: number;
   allNumber: number;
   setRate?: SetRateList;
-}
+};
 
 type EvaluationsRate = {
   rateNumber: number;
@@ -31,6 +33,7 @@ type Props = {
 type Inter = { id: string; items: ProcessItem[] }[];
 
 export function ProcessMake(props: Props) {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [connectId, setConnectId] = useState("");
@@ -39,7 +42,6 @@ export function ProcessMake(props: Props) {
   const [imagePath, setImagePath] = useState("");
   const [filterTagger, setFilterTagger] = useState<string[]>([]);
   const [makeProcess, setMakeProcess] = useState<ProcessItem[]>([]);
-  const [makeSimilarProcess, setMakeSimilarProcess] = useState<Inter>([]);
   const [listMethods, setListMethod] = useState<Method[]>([]);
   const [evaluations, setEvaluations] = useState<ProcessEvaluation[]>([]);
   const [evaluationsRate, setEvaluationsRate] = useState<EvaluationsRate>({
@@ -51,6 +53,15 @@ export function ProcessMake(props: Props) {
       items: [],
     },
   });
+  const action = (e: React.MouseEvent, getItem: Process) => {
+    const useUrl = router.pathname;
+    const item = {
+      urlCategory: useUrl,
+      eventAction: e,
+      setItem: getItem
+    }
+    setPageActionInfo(item);
+  }
   const editType = props.type;
   const _process = props.process;
   const removeTab = props.removeTab ?? (() => {});
@@ -95,27 +106,31 @@ export function ProcessMake(props: Props) {
     setMakeProcess(list);
   };
 
-  const addProcessAction = () => {
-    addProcess({
+  const addProcessAction = (e: React.MouseEvent) => {
+    const item = {
       id: `process0${process.length + 1}`,
       title: title,
       detail: detail,
       mainImage: imagePath,
       processdata: makeProcess,
       connectId: connectId,
-    });
+    };
+    addProcess(item);
     removeTab();
+    action(e,item);
   };
 
-  const updateProcessAction = () => {
-    updateProcess({
+  const updateProcessAction = (e: React.MouseEvent) => {
+    const item = {
       id: _process?.id ?? "",
       title: title,
       detail: detail,
       mainImage: imagePath,
       processdata: makeProcess,
       connectId: connectId,
-    });
+    };
+    updateProcess(item);
+    action(e,item);
   };
 
   const selectTagger = (selectTag: string) => {
@@ -264,7 +279,6 @@ export function ProcessMake(props: Props) {
           : Number(value);
       setItems = item?.items.map((item, _) => (_ === indexId ? l : item));
     }
-    console.log(evaluationsRate);
     setEvaluationsRate({ ...evaluationsRate, setRate: { ...item, items: setItems } });
   };
 
@@ -451,11 +465,15 @@ export function ProcessMake(props: Props) {
       </div>
       <div className="field">
         {editType === "edit" ? (
-          <button className="btn" onClick={updateProcessAction}>
+          <button className="btn" onClick={(e: React.MouseEvent) => {
+            updateProcessAction(e);
+          }}>
             update
           </button>
         ) : (
-          <button className="btn" onClick={addProcessAction}>
+          <button className="btn" onClick={(e: React.MouseEvent) => {
+            addProcessAction(e);
+          }}>
             save
           </button>
         )}

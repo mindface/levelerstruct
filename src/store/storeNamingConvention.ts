@@ -1,6 +1,7 @@
 import create from "zustand";
 
 import { FetchApi } from "../util/fetchApi";
+import { convertToObject } from "typescript";
 const url = process.env.NEXT_PUBLIC_DB_URL;
 
 export interface NamingDefinition {

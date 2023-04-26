@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useStoreMethod, Method } from "../store/storeMethod";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
   method?: Method;
 };
 
-export function ToolsEdit(props: Props) {
+export function EvaluationSetting(props: Props) {
   const { methods, addMethod, updateMethod } = useStoreMethod((store) => ({
     methods: store.methods,
     addMethod: store.addMethod,
@@ -148,6 +148,7 @@ export function ToolsEdit(props: Props) {
           </p>
         </div>
         <div className="field flex pb-1">
+          実行結果基準値(複数回可能) :
           <input
             type="number"
             className="input"

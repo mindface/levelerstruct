@@ -148,6 +148,7 @@ export function MethodEdit(props: Props) {
           </p>
         </div>
         <div className="field flex pb-1">
+          実行結果基準値(複数回可能) :
           <input
             type="number"
             className="input"

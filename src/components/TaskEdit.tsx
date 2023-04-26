@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import { useStore, Task } from "../store/store";
-import { useStoreProcess, Process, ProcessItem } from "../store/storeProcess";
+import { useStoreProcess, Process } from "../store/storeProcess";
 import { FieldInput } from "./parts/FieldInput";
 import { ProcessSelect } from "./parts/ProcessSelect";
 
