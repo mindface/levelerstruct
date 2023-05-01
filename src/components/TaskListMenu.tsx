@@ -42,10 +42,10 @@ export function TaskListMenu(props: Props) {
   };
 
   const setProcessItems = (processId: string) => {
-    if(process.length === 0) return [];
+    if (process.length === 0) return [];
     const item = process.filter((item) => {
-      if(item.id === processId) {
-        return item
+      if (item.id === processId) {
+        return item;
       }
     })[0];
     processTilte.current = item?.title;
@@ -54,7 +54,7 @@ export function TaskListMenu(props: Props) {
 
   useEffect(() => {
     getProcess();
-  },[]);
+  }, []);
 
   return (
     <div className="list-menu">
@@ -89,10 +89,7 @@ export function TaskListMenu(props: Props) {
                 <div className="detail">達成時間{task.purposeAchieved}</div>
               </div>
               <p className="pb-1">選択手段プロセス | {processTilte.current}</p>
-              <ProcessCards
-                type={viewId}
-                processItems={setProcessItems(task.useProcessId)}
-              />
+              <ProcessCards type={viewId} processItems={setProcessItems(task.useProcessId)} />
             </div>
           </div>
         )}

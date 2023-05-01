@@ -21,11 +21,11 @@ export function MethodEdit(props: Props) {
   const [detail, setDetail] = useState(editType === "edit" ? method?.detail ?? "" : "");
   const [structure, setStructure] = useState(editType === "edit" ? method?.structure ?? "" : "");
   const [tagInput, setTagInput] = useState("");
-  const [tagger, setTagger] = useState<string[]>(
-    method ? method.tagger.split(",") ?? "" : []
-  );
+  const [tagger, setTagger] = useState<string[]>(method ? method.tagger.split(",") ?? "" : []);
   const [adjustmentNumbersInput, setAdjustmentNumbersInput] = useState("");
-  const [adjustmentNumbers, setAdjustmentNumbers] = useState<number[]>(() => (method?.adjustmentNumbers as number[]));
+  const [adjustmentNumbers, setAdjustmentNumbers] = useState<number[]>(
+    () => method?.adjustmentNumbers as number[]
+  );
 
   const addAction = () => {
     addMethod({
@@ -35,7 +35,7 @@ export function MethodEdit(props: Props) {
       detail: detail,
       structure: structure,
       tagger: tagger.join(",") ?? "",
-      adjustmentNumbers: adjustmentNumbers
+      adjustmentNumbers: adjustmentNumbers,
     });
     reset();
   };
@@ -49,9 +49,9 @@ export function MethodEdit(props: Props) {
       detail: detail,
       structure: structure,
       tagger: _tagger.join(",") ?? "",
-      adjustmentNumbers: adjustmentNumbers
+      adjustmentNumbers: adjustmentNumbers,
     });
-    if(editType !== "edit") {
+    if (editType !== "edit") {
       reset();
     }
   };
@@ -103,9 +103,8 @@ export function MethodEdit(props: Props) {
             </div>
             <div
               className="maxhalf50 pl-1 viewer"
-              dangerouslySetInnerHTML={{__html: (detail.replace(/\n/g,'<br />')) }}
-            >
-            </div>
+              dangerouslySetInnerHTML={{ __html: detail.replace(/\n/g, "<br />") }}
+            ></div>
           </div>
         </div>
         <div className="field pb-1">
@@ -118,14 +117,15 @@ export function MethodEdit(props: Props) {
                 cols={30}
                 rows={10}
                 value={structure}
-                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setStructure(e.target?.value)}
+                onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                  setStructure(e.target?.value)
+                }
               />
             </div>
             <div
               className="maxhalf50 pl-1 viewer"
-              dangerouslySetInnerHTML={{__html: (structure.replace(/\n/g,'<br />')) }}
-            >
-            </div>
+              dangerouslySetInnerHTML={{ __html: structure.replace(/\n/g, "<br />") }}
+            ></div>
           </div>
         </div>
         <div className="field flex pb-1">
@@ -148,14 +148,22 @@ export function MethodEdit(props: Props) {
           </p>
         </div>
         <div className="field flex pb-1">
+          実行結果基準値(複数回可能) :
           <input
             type="number"
             className="input"
             step={0.01}
             value={adjustmentNumbersInput}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAdjustmentNumbersInput(e.target?.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setAdjustmentNumbersInput(e.target?.value)
+            }
           />
-          <button className="btn" onClick={() => setAdjustmentNumbers([...adjustmentNumbers, Number(adjustmentNumbersInput)])}>
+          <button
+            className="btn"
+            onClick={() =>
+              setAdjustmentNumbers([...adjustmentNumbers, Number(adjustmentNumbersInput)])
+            }
+          >
             add
           </button>
           <p className="tags p-1">
@@ -179,8 +187,7 @@ export function MethodEdit(props: Props) {
         </div>
       </div>
       <div className="fields-view p-2">
-        <div className="field pb-1">
-        </div>
+        <div className="field pb-1"></div>
         <div className="field pb-1"></div>
       </div>
     </div>

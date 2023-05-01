@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import NextImage from 'next/image';
+import NextImage from "next/image";
 import listUnordered from "../images/list-unordered.svg";
 import { BaseDialog, ForwardRefHandle } from "./BaseDialog";
 import { useStoreMethod, Method } from "../store/storeMethod";
@@ -17,7 +17,7 @@ export function MethodListMenu(props: Props) {
     deleteMethod: store.deleteMethod,
   }));
   const { addMethod } = useStoreMethod((store) => ({
-    addMethod: store.addMethod
+    addMethod: store.addMethod,
   }));
   const [viewId, setViewId] = useState("detail");
   const element = useRef<ForwardRefHandle>(null);
@@ -43,7 +43,7 @@ export function MethodListMenu(props: Props) {
       structure: method.structure,
       tagger: method.tagger,
     });
-  }
+  };
 
   return (
     <div className="list-menu">
@@ -78,13 +78,13 @@ export function MethodListMenu(props: Props) {
                 <div className="field pb-1">
                   <div
                     className="detail viewer"
-                    dangerouslySetInnerHTML={{__html: (method.detail.replace(/\n/g,'<br />')) }}
-                  >
-                  </div>
+                    dangerouslySetInnerHTML={{ __html: method.detail.replace(/\n/g, "<br />") }}
+                  ></div>
                 </div>
                 <div className="field pb-1">
-                  <div className="structure viewer"
-                    dangerouslySetInnerHTML={{__html: (method.structure.replace(/\n/g,'<br />')) }}
+                  <div
+                    className="structure viewer"
+                    dangerouslySetInnerHTML={{ __html: method.structure.replace(/\n/g, "<br />") }}
                   ></div>
                 </div>
                 <div className="field pb-1">

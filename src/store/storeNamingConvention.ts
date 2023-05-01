@@ -1,6 +1,4 @@
-import create from "zustand";
-
-import { FetchApi } from "../util/fetchApi";
+import { create } from "zustand";
 const url = process.env.NEXT_PUBLIC_DB_URL;
 
 export interface NamingDefinition {
@@ -38,19 +36,28 @@ export const useStoreNamingDefinition = create<StoreNamingDefinition>((set, get)
     },
   ],
   uiDefinitions: [
-    { id: "1", name : "task", path: "task", structure: "" },
-    { id: "2", name : "process", path: "process", structure: "" },
-    { id: "3", name : "method", path: "method", structure: "" },
-    { id: "4", name : "movieANDphoto", path: "movieANDphoto", structure: "" },
-    { id: "5", name : "selector", path: "selector", structure: "" },
-    { id: "6", name : "limitInfo", path: "limitInfo", structure: "" },
-    { id: "7", name : "connection", path: "connection", structure: "" },
-    { id: "8", name : "structureFormation", path: "structureFormation", structure: "" },
-    { id: "9", name : "higherRank", path: "higherRank", structure: "" },
+    { id: "1", name: "task", path: "task", structure: "受注" },
+    { id: "2", name: "process", path: "process", structure: "生産プロセス" },
+    { id: "3", name: "method", path: "method", structure: "手段と機材" },
+    {
+      id: "4",
+      name: "movieANDphoto",
+      path: "movieANDphoto",
+      structure: "作業画像と言語情報について",
+    },
+    { id: "5", name: "selector", path: "selector", structure: "" },
+    { id: "6", name: "limitInfo", path: "limitInfo", structure: "制限した情報化" },
+    { id: "7", name: "connection", path: "connection", structure: "作業と結果の紐付け" },
+    { id: "8", name: "structureFormation", path: "structureFormation", structure: "" },
+    { id: "9", name: "higherRank", path: "higherRank", structure: "受注情報をまとめる" },
+    { id: "10", name: "evaluation", path: "evaluation", structure: "評価形成" },
+    { id: "11", name: "order", path: "order", structure: "注文内容と概要" },
+    { id: "12", name: "managementScreen", path: "managementScreen", structure: "" },
+    { id: "13", name: "imageMakerDefinition", path: "imageMakerDefinition", structure: "" },
   ],
   updateUiDefinition: (uiDefinitions: UiDefinition[]) => {
     set({
-      uiDefinitions: uiDefinitions
+      uiDefinitions: uiDefinitions,
     });
   },
   deleteDefinitions: (namingDefinitionId: string) => {

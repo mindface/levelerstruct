@@ -213,7 +213,7 @@ img {
 }
 .labeltext {
   position: absolute;
-  top: -6px;
+  top: -8px;
   left: 2px;
   display: inline-block;
   padding: 2px;
@@ -299,6 +299,13 @@ img {
   top: 0;
   left: 0;
 }
+
+.positionFixedTopLeft {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 .positionTopRight {
   position: absolute;
   top: 0;
