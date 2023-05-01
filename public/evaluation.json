@@ -1,0 +1,98 @@
+[
+  {
+    "id": "1",
+    "title": "task level",
+    "categoryId": "task",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "2",
+    "title": "process level",
+    "categoryId": "process",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "3",
+    "title": "method level",
+    "categoryId": "method",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "4",
+    "title": "movieANDphoto level",
+    "categoryId": "movieANDphoto",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "5",
+    "title": "selector level",
+    "categoryId": "selector",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "6",
+    "title": "limitInfo level",
+    "categoryId": "limitInfo",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "7",
+    "title": "connection level",
+    "categoryId": "connection",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "8",
+    "title": "limitInfo level",
+    "categoryId": "limitInfo",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "9",
+    "title": "structureFormation level",
+    "categoryId": "structureFormation",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "10",
+    "title": "higherRank level",
+    "categoryId": "higherRank",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "11",
+    "title": "order level",
+    "categoryId": "order",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  },
+  {
+    "id": "11",
+    "title": "managementScreen level",
+    "categoryId": "managementScreen",
+    "makeEvaluation": [],
+    "structure": [],
+    "adjustmentNumbers": []
+  }
+]

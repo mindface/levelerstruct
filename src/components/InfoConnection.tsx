@@ -5,7 +5,6 @@ import { useStoreProcess, Process } from "../store/storeProcess";
 import { useRouter } from "next/router";
 import { tagView } from "../util/lib";
 import { ProcessCards } from "./ProcessCards";
-import { sums } from "../wasm/wasm_imager_bg.wasm";
 
 type MmakeComparisons = { id: number; rate: number; process: Process }[];
 import { fabric } from "fabric";
@@ -177,14 +176,6 @@ export function InfoConnection() {
       </div>
       <div className="fields p-2">
         <div className="field pb-1">
-          <button
-            onClick={() => {
-              const ll = sums(12);
-              console.log(ll);
-            }}
-          >
-            sums
-          </button>
           <p className="item pb-1">{connectMethod.methodId}</p>
           <p className="item pb-1">{connectMethod.title}</p>
           <div

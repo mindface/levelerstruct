@@ -66,7 +66,6 @@ export function ProcessListMenu(props: Props) {
                 </div>
               </div>
               <div className="field pb-1">
-                {}
                 <ProcessCards type={viewId} processItems={process.processdata} />
               </div>
             </div>

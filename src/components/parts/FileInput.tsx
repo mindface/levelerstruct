@@ -23,9 +23,9 @@ export function FileInput(props: Props) {
   }, []);
 
   return (
-    <div className="input-box pb-1">
+    <div className="input-box d-inline positionbase pb-1">
       <label htmlFor={`input${id}`} className="label">
-        {label && <span className="labeltext d-inline pr-1">{label}</span>}
+        {/* {label && <span className="labeltext d-inline pr-1">{label}</span>} */}
         <input
           ref={input}
           id={`input${id}`}

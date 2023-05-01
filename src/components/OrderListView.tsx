@@ -3,7 +3,7 @@ import { ProcessListMenu } from "./ProcessListMenu";
 import { useStoreProcess, Process } from "../store/storeProcess";
 import { averageMethodItem } from "../util/lib";
 
-export function EvaluationHistory() {
+export function OrderListView() {
   const { process, getProcess } = useStoreProcess((store) => ({
     process: store.process,
     getProcess: store.getProcess,
@@ -26,7 +26,7 @@ export function EvaluationHistory() {
     <div className="content content-edit">
       <div className="caption flex-nw p-1">
         <div className="check"></div>
-        <div className="title">タイトル - プロセスリスト</div>
+        <div className="title">タイトル - オーダーリスト</div>
         <div className="action"></div>
       </div>
       <ul className="list p-1">
@@ -34,7 +34,7 @@ export function EvaluationHistory() {
           <li key={item.id} className="item divthinhover flex-nw p-1">
             <div className="check"></div>
             <div className="title">{item.title}</div>
-            <div className="f">{viewTotalNumber(item)}</div>
+            <div className="total">{viewTotalNumber(item)}</div>
             <div className="action">
               <ProcessListMenu type="process" item={item} />
             </div>

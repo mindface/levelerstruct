@@ -1,8 +1,9 @@
 import Head from "next/head";
-import { LimitInfo } from "../components/LimitInfo";
+
+import { ImageMakerDefinition } from "../components/ImageMakerDefinition";
 import { getPath } from "../util/lib";
 
-export default function limitInfo() {
+export default function MovieReaderDefinition() {
   return (
     <>
       <Head>
@@ -12,7 +13,8 @@ export default function limitInfo() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <LimitInfo />
+        <div className="btn-area">asdfg</div>
+        <ImageMakerDefinition />
       </main>
     </>
   );

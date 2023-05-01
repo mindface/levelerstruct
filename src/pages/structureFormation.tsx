@@ -4,7 +4,6 @@ import { InfoStructureFormation } from "../components/InfoStructureFormation";
 import { getPath } from "../util/lib";
 
 export default function StructureFormation() {
-
   return (
     <>
       <Head>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Task } from "../store/store";
 import { useStoreImage, Image as IImage } from "../store/storeImage";
 

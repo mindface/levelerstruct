@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 interface Props {
   value?: string;
@@ -21,11 +21,15 @@ export function FieldInput(props: Props) {
   const { value, name, className, type, id, label, step, min, max, viewValue, eventChange } = props;
   const changeAction = eventChange ?? (() => {});
   const input = useRef<HTMLInputElement>(null);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     if (step) input.current?.setAttribute("step", String(step));
     if (name) input.current?.setAttribute("name", name);
   }, []);
+  useEffect(() => {
+    setInputValue(value ?? "");
+  }, [value]);
 
   return (
     <div className="input-box d-inline pt-1 pb-1">
@@ -35,7 +39,7 @@ export function FieldInput(props: Props) {
           <input
             ref={input}
             id={`input${id}`}
-            defaultValue={value ?? ""}
+            defaultValue={inputValue ?? ""}
             className={`input ${className}`}
             type={type ?? "text"}
             onChange={(e: InputChangeEvent) => {
@@ -47,7 +51,7 @@ export function FieldInput(props: Props) {
           <input
             ref={input}
             id={`input${id}`}
-            defaultValue={value ?? ""}
+            defaultValue={inputValue ?? ""}
             className={`input ${className}`}
             type={type ?? "text"}
             max={max}

@@ -16,7 +16,7 @@ interface ProcessEvaluation extends ProcessItem {
   rateNumber: number;
   allNumber: number;
   setRate?: SetRateList;
-};
+}
 
 type EvaluationsRate = {
   rateNumber: number;
@@ -58,10 +58,10 @@ export function ProcessMake(props: Props) {
     const item = {
       urlCategory: useUrl,
       eventAction: e,
-      setItem: getItem
-    }
+      setItem: getItem,
+    };
     setPageActionInfo(item);
-  }
+  };
   const editType = props.type;
   const _process = props.process;
   const removeTab = props.removeTab ?? (() => {});
@@ -117,7 +117,7 @@ export function ProcessMake(props: Props) {
     };
     addProcess(item);
     removeTab();
-    action(e,item);
+    action(e, item);
   };
 
   const updateProcessAction = (e: React.MouseEvent) => {
@@ -130,7 +130,7 @@ export function ProcessMake(props: Props) {
       connectId: connectId,
     };
     updateProcess(item);
-    action(e,item);
+    action(e, item);
   };
 
   const selectTagger = (selectTag: string) => {
@@ -465,15 +465,21 @@ export function ProcessMake(props: Props) {
       </div>
       <div className="field">
         {editType === "edit" ? (
-          <button className="btn" onClick={(e: React.MouseEvent) => {
-            updateProcessAction(e);
-          }}>
+          <button
+            className="btn"
+            onClick={(e: React.MouseEvent) => {
+              updateProcessAction(e);
+            }}
+          >
             update
           </button>
         ) : (
-          <button className="btn" onClick={(e: React.MouseEvent) => {
-            addProcessAction(e);
-          }}>
+          <button
+            className="btn"
+            onClick={(e: React.MouseEvent) => {
+              addProcessAction(e);
+            }}
+          >
             save
           </button>
         )}

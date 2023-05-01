@@ -109,6 +109,8 @@ export function TaskEdit(props: Props) {
           />
         </div>
         <div className="field pb-1">
+          {task?.runNumber}
+          {runNumber}
           <FieldInput
             type="number"
             id="run-number"

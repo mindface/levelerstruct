@@ -3,7 +3,7 @@ import { ProcessListMenu } from "./ProcessListMenu";
 import { useStoreProcess, Process } from "../store/storeProcess";
 import { averageMethodItem } from "../util/lib";
 
-export function EvaluationHistory() {
+export function OrderHistory() {
   const { process, getProcess } = useStoreProcess((store) => ({
     process: store.process,
     getProcess: store.getProcess,

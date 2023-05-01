@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
 import { InfoSelector } from "../components/InfoSelector";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import { getPath } from "../util/lib";
 
 export default function Selector() {

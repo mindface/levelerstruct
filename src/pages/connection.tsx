@@ -9,7 +9,7 @@ export default function Connection() {
 
   const tabAction = (tabId: string) => {
     setTab(tabId);
-  }
+  };
 
   return (
     <>

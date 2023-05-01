@@ -127,7 +127,6 @@ export const useStoreConnect = create<StoreConnect>((set, get) => ({
   },
   updateConnect: (connect: Connect) => {
     (async () => {
-      console.log(process);
       try {
         const res = await FetchApi.PutFetch<Connect>(`${url}/uploadProcessAction`, connect);
         return res;

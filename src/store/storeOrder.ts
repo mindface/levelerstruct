@@ -4,7 +4,7 @@ import { FetchApi } from "../util/fetchApi";
 const url = process.env.NEXT_PUBLIC_DB_URL;
 
 // どこかで数値を保持させる。
-export interface Method {
+export interface Order {
   id: string;
   methodId: string;
   title: string;
@@ -14,17 +14,17 @@ export interface Method {
   adjustmentNumbers?: number[] | string;
 }
 
-interface StoreMethod {
-  methods: Method[];
+interface StoreOrder {
+  methods: Order[];
 
   getMethod: () => void;
-  addMethod: (method: Method) => void | { saveResult: string };
-  updateMethod: (method: Method) => void | { saveResult: string };
+  addMethod: (method: Order) => void | { saveResult: string };
+  updateMethod: (method: Order) => void | { saveResult: string };
   deleteMethod: (methodId: string) => void;
   reset: () => void;
 }
 
-export const useStoreMethod = create<StoreMethod>((set, get) => ({
+export const useStoreMethod = create<StoreOrder>((set, get) => ({
   methods: [
     {
       id: "1",
@@ -38,18 +38,18 @@ export const useStoreMethod = create<StoreMethod>((set, get) => ({
   getMethod: () => {
     (async () => {
       const res = await FetchApi.GetFetch(`${url}/getMethods`);
-      const list = (res as Method[]).map((item) => {
+      const list = (res as Order[]).map((item) => {
         return { ...item, adjustmentNumbers: JSON.parse(item.adjustmentNumbers as string) ?? [] };
       });
       set({
-        methods: list as Method[],
+        methods: list as Order[],
       });
     })();
   },
-  addMethod: (method: Method) => {
+  addMethod: (method: Order) => {
     (async () => {
       try {
-        const res = await FetchApi.PostFetch<Method>(`${url}/addMethodAction`, method);
+        const res = await FetchApi.PostFetch<Order>(`${url}/addMethodAction`, method);
         if (res?.saveResult === "ok") {
           get().getMethod();
         }
@@ -58,10 +58,10 @@ export const useStoreMethod = create<StoreMethod>((set, get) => ({
       }
     })();
   },
-  updateMethod: (method: Method) => {
+  updateMethod: (method: Order) => {
     (async () => {
       try {
-        const res = await FetchApi.PutFetch<Method>(`${url}/uploadMethodAction`, method);
+        const res = await FetchApi.PutFetch<Order>(`${url}/uploadMethodAction`, method);
         if (res?.saveResult === "ok") {
           get().getMethod();
         }

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useStoreEvaluation, Evaluation } from "../store/storeEvaluation";
+import React, { useState } from "react";
 import { useStoreMethod, Method } from "../store/storeMethod";
 import { useStoreNamingDefinition } from "../store/storeNamingConvention";
 import { FieldInput } from "./parts/FieldInput";
@@ -9,11 +8,7 @@ type Props = {
   method?: Method;
 };
 
-export function EvaluationSetting(props: Props) {
-  const { evaluations, getEvaluation } = useStoreEvaluation((store) => ({
-    evaluations: store.evaluations,
-    getEvaluation: store.getEvaluation,
-  }));
+export function OrderSetting(props: Props) {
   const { methods, addMethod, updateMethod } = useStoreMethod((store) => ({
     methods: store.methods,
     addMethod: store.addMethod,
@@ -28,6 +23,7 @@ export function EvaluationSetting(props: Props) {
   const method = props.method;
   const editType = props.type;
   const [title, setTitle] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [keyValues, setKeyValues] = useState<{ key: ""; value: "" }[]>([{ key: "", value: "" }]);
   const [structure, setStructure] = useState("");
   const [tagger, setTagger] = useState<string[]>(method ? method.tagger.split(",") ?? "" : []);
@@ -42,6 +38,7 @@ export function EvaluationSetting(props: Props) {
 
   const updateAction = () => {
     const _tagger = tagger.filter((item) => item !== "");
+
     if (editType !== "edit") {
       reset();
     }
@@ -70,20 +67,6 @@ export function EvaluationSetting(props: Props) {
     setTitle("");
     setTagger([]);
   };
-
-  const setEvaluationItem = (id: string) => {
-    let setItem: Evaluation | object = {};
-    evaluations.forEach((item) => {
-      if (id === item.id) {
-        setItem = item;
-      }
-    });
-    return setItem;
-  };
-
-  useEffect(() => {
-    getEvaluation();
-  }, []);
 
   return (
     <div className="fields">

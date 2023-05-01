@@ -1,15 +1,20 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
+
 import { EvaluationSetting } from "../components/EvaluationSetting";
 import { EvaluationHistory } from "../components/EvaluationHistory";
 import { getPath } from "../util/lib";
 
-export default function Evaluation() {
+export default function Feedback() {
   const [tab, setTab] = useState("setting");
   useEffect(() => {}, []);
 
   const tabAction = (tabId: string) => {
     setTab(tabId);
+  };
+
+  const chnageTab = () => {
+    setTab("list");
   };
 
   return (

@@ -19,8 +19,8 @@ export function ProcessListView() {
       aj = aj + averageMethodItem(processdata);
       // console.log(averageMethodItem(processdata))
     });
-    return aj
-  }
+    return aj;
+  };
 
   return (
     <div className="content content-edit">
@@ -32,9 +32,7 @@ export function ProcessListView() {
       <ul className="list p-1">
         {process.map((item) => (
           <li key={item.id} className="item divthinhover flex-nw p-1">
-            <div className="check">
-              
-            </div>
+            <div className="check"></div>
             <div className="title">{item.title}</div>
             <div className="f">{viewTotalNumber(item)}</div>
             <div className="action">

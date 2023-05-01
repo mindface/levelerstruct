@@ -86,7 +86,7 @@ export function InfoStructureFormation() {
       </div>
       <div className="structure-area positionbase minh320" ref={structureArea}>
         {bgUrl !== "" && <img className="img" src={bgUrl} />}
-        {makeStructureComparisons.map((item,index) => (
+        {makeStructureComparisons.map((item, index) => (
           <DraggableDiv
             key={index}
             type="grab"
