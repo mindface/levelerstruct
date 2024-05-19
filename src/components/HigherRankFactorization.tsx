@@ -43,7 +43,7 @@ export function HigherRankFactorization() {
 
   useEffect(() => {
     const list: ClusterTask[] = [];
-    tasks.forEach((item) => {
+    (tasks ?? []).forEach((item) => {
       const setItem = process.filter((processItem) => processItem.id === item.useProcessId);
       list.push({
         ...item,

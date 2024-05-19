@@ -67,9 +67,9 @@ export function ControlView() {
 
   useEffect(() => {
     const list = headerUi.map((item, index) => {
-      if (item.name === "task") return { ...item, total: tasks.length };
-      if (item.name === "process") return { ...item, total: process.length };
-      if (item.name === "method") return { ...item, total: methods.length };
+      if (item.name === "task") return { ...item, total: (tasks ?? []).length };
+      if (item.name === "process") return { ...item, total: (process ?? []).length };
+      if (item.name === "method") return { ...item, total: (methods ?? []).length };
       return { ...item, total: 0 };
     });
     setDetailInfoList(list);

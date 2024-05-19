@@ -38,7 +38,7 @@ export const useStoreMethod = create<StoreMethod>((set, get) => ({
   getMethod: () => {
     (async () => {
       const res = await FetchApi.GetFetch(`${url}/getMethods`);
-      const list = (res as Method[]).map((item) => {
+      const list = (res as Method[] ?? []).map((item) => {
         return { ...item, adjustmentNumbers: JSON.parse(item.adjustmentNumbers as string) ?? [] };
       });
       set({

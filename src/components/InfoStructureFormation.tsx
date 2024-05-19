@@ -72,7 +72,7 @@ export function InfoStructureFormation() {
         <div className="process-box cursol-absolute-view positionbase d-inline max420 p-1">
           <span className="d-block btn">sccroll</span>
           <ul className="list hover-absolute-view maxh320 over-scroll background-white box-shadow">
-            {process.map((item) => (
+            {(process ?? []).map((item) => (
               <li
                 key={item.id}
                 className="item divhover cursor p-1"
@@ -86,7 +86,7 @@ export function InfoStructureFormation() {
       </div>
       <div className="structure-area positionbase minh320" ref={structureArea}>
         {bgUrl !== "" && <img className="img" src={bgUrl} />}
-        {makeStructureComparisons.map((item, index) => (
+        {(makeStructureComparisons ?? []).map((item, index) => (
           <DraggableDiv
             key={index}
             type="grab"
