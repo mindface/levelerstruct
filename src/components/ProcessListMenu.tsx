@@ -58,11 +58,11 @@ export function ProcessListMenu(props: Props) {
                 <h3 className="title">{process.title}</h3>
               </div>
               <div className="field pb-1">
-                <div className="detail">{ (process.detail.replace(/\n/g,'<br />'))}</div>
+                <div className="detail">{process.detail.replace(/\n/g, "<br />")}</div>
               </div>
               <div className="field pb-1">
                 <div className="max320">
-                  {process.mainImage !=="" && <img src={process.mainImage} alt="" />}
+                  {process.mainImage !== "" && <img src={process.mainImage} alt="" />}
                 </div>
               </div>
               <div className="field pb-1">

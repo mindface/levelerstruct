@@ -3,7 +3,7 @@ import { create } from "zustand";
 import { FetchApi } from "../util/fetchApi";
 const url = process.env.NEXT_PUBLIC_DB_URL;
 
-export type RateItem = {id:number;rate:string;value:string;path: string;};
+export type RateItem = { id: number; rate: string; value: string; path: string };
 export interface ProcessItem {
   executionId: string;
   title: string;
@@ -31,7 +31,7 @@ export interface RateProcessItem {
   structure: string;
   adjustmentNumbers?: number[] | string;
   tagger: string;
-  ratedata: RateItem[]
+  ratedata: RateItem[];
 }
 
 export interface RateProcess {
@@ -63,7 +63,7 @@ export const useStoreProcess = create<StoreProcess>((set, get) => ({
       mainImage: "node fetch mainImage01",
       detail: "node fetch detail",
       processdata: [],
-    }
+    },
   ],
   getProcess: () => {
     (async () => {

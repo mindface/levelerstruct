@@ -1,4 +1,4 @@
-import create from "zustand";
+import { create } from "zustand";
 
 import { FetchApi } from "../util/fetchApi";
 const url = process.env.NEXT_PUBLIC_DB_URL;
@@ -11,7 +11,7 @@ export interface Method {
   detail: string;
   structure: string;
   tagger: string;
-  adjustmentNumbers?: number[] | string
+  adjustmentNumbers?: number[] | string;
 }
 
 interface StoreMethod {
@@ -38,8 +38,8 @@ export const useStoreMethod = create<StoreMethod>((set, get) => ({
   getMethod: () => {
     (async () => {
       const res = await FetchApi.GetFetch(`${url}/getMethods`);
-      const list = (res as Method[]).map((item) => {
-        return {...item, adjustmentNumbers: JSON.parse(item.adjustmentNumbers as string) ?? []}
+      const list = (res as Method[] ?? []).map((item) => {
+        return { ...item, adjustmentNumbers: JSON.parse(item.adjustmentNumbers as string) ?? [] };
       });
       set({
         methods: list as Method[],

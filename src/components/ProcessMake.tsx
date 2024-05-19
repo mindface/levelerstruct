@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ProcessCards } from "./ProcessCards";
 import { useStoreProcess, Process, ProcessItem } from "../store/storeProcess";
 import { useStoreMethod, Method } from "../store/storeMethod";
 import plusCircle from "../images/plus-circle.svg";
 import { FieldInput } from "./parts/FieldInput";
+import { setPageActionInfo } from "../util/lib";
 
-type SetRate = {indexId:string;methodId:string,items:number[]};
+type SetRate = { indexId: string; methodId: string; items: number[] };
 type SetRateList = SetRate[];
 
 interface ProcessEvaluation extends ProcessItem {
   evaluation: number[];
-  rateNumber:number;
-  allNumber:number;
-  setRate?: SetRateList
+  rateNumber: number;
+  allNumber: number;
+  setRate?: SetRateList;
 }
 
 type EvaluationsRate = {
-  rateNumber:number;
-  allNumber:number;
-  setRate:SetRate;
-}
+  rateNumber: number;
+  allNumber: number;
+  setRate: SetRate;
+};
 
 type Props = {
   type: string;
@@ -28,44 +30,52 @@ type Props = {
   removeTab?: () => void;
 };
 
-type Inter = {id:string,items:ProcessItem[]}[];
+type Inter = { id: string; items: ProcessItem[] }[];
 
 export function ProcessMake(props: Props) {
+  const router = useRouter();
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [connectId, setConnectId] = useState("");
   const [filterText, setFilterText] = useState("");
   const [viewTagger, setViewTagger] = useState<string[]>([]);
-  const [imagePath,setImagePath] = useState("");
+  const [imagePath, setImagePath] = useState("");
   const [filterTagger, setFilterTagger] = useState<string[]>([]);
   const [makeProcess, setMakeProcess] = useState<ProcessItem[]>([]);
-  const [makeSimilarProcess, setMakeSimilarProcess] = useState<Inter>([]);
   const [listMethods, setListMethod] = useState<Method[]>([]);
-  const [evaluations,setEvaluations] = useState<ProcessEvaluation[]>([]);
-  const [evaluationsRate,setEvaluationsRate] = useState<EvaluationsRate>({
-      rateNumber: 0,
-      allNumber: 0,
-      setRate:{
-        indexId: "",
-        methodId: "",
-        items:[]
-      }
-    }
-  );
+  const [evaluations, setEvaluations] = useState<ProcessEvaluation[]>([]);
+  const [evaluationsRate, setEvaluationsRate] = useState<EvaluationsRate>({
+    rateNumber: 0,
+    allNumber: 0,
+    setRate: {
+      indexId: "",
+      methodId: "",
+      items: [],
+    },
+  });
+  const action = (e: React.MouseEvent, getItem: Process) => {
+    const useUrl = router.pathname;
+    const item = {
+      urlCategory: useUrl,
+      eventAction: e,
+      setItem: getItem,
+    };
+    setPageActionInfo(item);
+  };
   const editType = props.type;
   const _process = props.process;
   const removeTab = props.removeTab ?? (() => {});
 
   const { methods, getMethod } = useStoreMethod((store) => ({
     methods: store.methods,
-    getMethod: store.getMethod
+    getMethod: store.getMethod,
   }));
 
   const { process, addProcess, updateProcess } = useStoreProcess((store) => ({
     process: store.process,
     getProcess: store.getProcess,
     addProcess: store.addProcess,
-    updateProcess: store.updateProcess
+    updateProcess: store.updateProcess,
   }));
 
   const addMethod = (method: Method) => {
@@ -82,7 +92,7 @@ export function ProcessMake(props: Props) {
   };
 
   const removeMethod = (methodIndex: number) => {
-    const list = makeProcess.filter((item,index) => index !== methodIndex);
+    const list = makeProcess.filter((item, index) => index !== methodIndex);
     setMakeProcess(list);
   };
 
@@ -96,73 +106,77 @@ export function ProcessMake(props: Props) {
     setMakeProcess(list);
   };
 
-  const addProcessAction = () => {
-    addProcess({
+  const addProcessAction = (e: React.MouseEvent) => {
+    const item = {
       id: `process0${process.length + 1}`,
       title: title,
       detail: detail,
       mainImage: imagePath,
       processdata: makeProcess,
       connectId: connectId,
-    });
+    };
+    addProcess(item);
     removeTab();
+    action(e, item);
   };
 
-  const updateProcessAction = () => {
-    updateProcess({
+  const updateProcessAction = (e: React.MouseEvent) => {
+    const item = {
       id: _process?.id ?? "",
       title: title,
       detail: detail,
       mainImage: imagePath,
       processdata: makeProcess,
       connectId: connectId,
-    });
+    };
+    updateProcess(item);
+    action(e, item);
   };
 
   const selectTagger = (selectTag: string) => {
-    if(!selectTag) return methods;
-    if(!filterTagger.includes(selectTag)) {
-      setFilterTagger([...filterTagger,selectTag]);
-    }else {
+    if (!selectTag) return methods;
+    if (!filterTagger.includes(selectTag)) {
+      setFilterTagger([...filterTagger, selectTag]);
+    } else {
       const _ = filterTagger.filter((t) => t !== selectTag);
       setFilterTagger(_);
     }
-  }
+  };
 
   const setMethodAction = () => {
-    let list:Method[] = [];
-    let viewTaggers:string[] = [];
+    let list: Method[] = [];
+    let viewTaggers: string[] = [];
     methods.forEach((item) => {
       item.tagger.split(",").forEach((tag) => {
-        if(!viewTaggers.includes(tag)) {
+        if (!viewTaggers.includes(tag)) {
           viewTaggers.push(tag);
         }
       });
-      if(filterTagger.join(",").indexOf(item.tagger) !== -1) {
+      if (filterTagger.join(",").indexOf(item.tagger) !== -1) {
         list.push(item);
         return;
       }
-      if(item.tagger.indexOf(filterText) > 0) {
+      if (item.tagger.indexOf(filterText) > 0) {
         list.push(item);
         return;
       }
     });
-    if(filterText === "" && filterTagger.length === 0) {
+    if (filterText === "" && filterTagger.length === 0) {
       list = methods;
     }
     setViewTagger(viewTaggers);
     setListMethod(list);
-  }
+  };
 
   const increasedProductionAction = () => {
-    const list:Inter = [];
-    makeProcess.forEach((item,k) => {
+    const list: Inter = [];
+    makeProcess.forEach((item, k) => {
       list.push({
-        id: `re${k+1}`,
-        items: []
+        id: `re${k + 1}`,
+        items: [],
       });
-      methods.forEach((method,m) => {
-        if(item.tagger?.indexOf(method.tagger) > -1) {
+      methods.forEach((method, m) => {
+        if (item.tagger?.indexOf(method.tagger) > -1) {
           list[k].items.push({
             executionId: "",
             title: method.title ?? "",
@@ -172,49 +186,52 @@ export function ProcessMake(props: Props) {
             tagger: method.tagger ?? "",
             adjustmentNumbers: method.adjustmentNumbers ?? [],
           });
-         }
-      })
+        }
+      });
     });
     const _list: any = [];
     let __list: any = [];
-    list[0].items.forEach((d,l) => {
+    list[0].items.forEach((d, l) => {
       __list = [d];
-      list[l]?.items?.forEach((item,n) => {
-        if(n === 0) return;
+      list[l]?.items?.forEach((item, n) => {
+        if (n === 0) return;
         __list.push(item);
       });
       _list.push(__list);
     });
-  }
+  };
 
   const evaluationSetAction = (items: ProcessItem[]) => {
-    const evaluationslist:ProcessEvaluation[] = [];
-    const evaluationsRatelist:SetRateList = [];
-    items.forEach((item: ProcessItem,_:number) => {
+    const evaluationslist: ProcessEvaluation[] = [];
+    const evaluationsRatelist: SetRateList = [];
+    items.forEach((item: ProcessItem, _: number) => {
       evaluationsRatelist.push({
-          indexId: String(_),
-          methodId:item.methodId,
-          items: []
-        });
+        indexId: String(_),
+        methodId: item.methodId,
+        items: [],
+      });
       evaluationslist.push({
-          ...item,
-          evaluation:[],
-          rateNumber: 0,
-          allNumber: 0,
-          methodId:item.methodId
-        });
+        ...item,
+        evaluation: [],
+        rateNumber: 0,
+        allNumber: 0,
+        methodId: item.methodId,
+      });
     });
     setEvaluations(evaluationslist);
-    setEvaluationsRate({...evaluationsRate,setRate: {
-      indexId: "",
-      methodId:"",
-      items: []
-    }});
-  }
+    setEvaluationsRate({
+      ...evaluationsRate,
+      setRate: {
+        indexId: "",
+        methodId: "",
+        items: [],
+      },
+    });
+  };
 
   useEffect(() => {
     getMethod();
-  },[]);
+  }, []);
 
   useEffect(() => {
     if (_process) {
@@ -224,40 +241,46 @@ export function ProcessMake(props: Props) {
       setMakeProcess(_process.processdata ?? []);
       setImagePath(_process.mainImage ?? "");
       evaluationSetAction(_process.processdata ?? []);
-
     }
   }, [getMethod, _process]);
-  
+
   useEffect(() => {
     setMethodAction();
-  },[filterTagger,filterText,methods]);
+  }, [filterTagger, filterText, methods]);
 
-  const updateEvaluationsRate = (type:string,value:string) => {
-    if(type !== "evaluationsRate" ) {
+  const updateEvaluationsRate = (type: string, value: string) => {
+    if (type !== "evaluationsRate") {
       let setNumber = Number(value);
-      if(evaluationsRate.rateNumber !== 0) {
+      if (evaluationsRate.rateNumber !== 0) {
         setNumber = 0;
       }
       setEvaluationsRate({
         ...evaluationsRate,
-        [type]: setNumber
+        [type]: setNumber,
       });
     }
-  }
+  };
 
-  const evaluationsRateSetRateAction = (action: string, methodId: string, indexId: number, value?: string) => {
-    const item = evaluationsRate.setRate
-      let setItems = [...item.items,0];
-      if(action === "delete") {
-        setItems = item?.items.slice(0,-1) ?? [];
-      }
-      if(action === "update") {
-        const l = evaluationsRate.rateNumber !== 0 ? Number(value) * evaluationsRate.rateNumber : Number(value);
-        setItems = item?.items.map((item,_) => _ === indexId ? l : item );
-      }
-      console.log(evaluationsRate)
-    setEvaluationsRate({...evaluationsRate,setRate: { ...item, items: setItems }});
-  }
+  const evaluationsRateSetRateAction = (
+    action: string,
+    methodId: string,
+    indexId: number,
+    value?: string
+  ) => {
+    const item = evaluationsRate.setRate;
+    let setItems = [...item.items, 0];
+    if (action === "delete") {
+      setItems = item?.items.slice(0, -1) ?? [];
+    }
+    if (action === "update") {
+      const l =
+        evaluationsRate.rateNumber !== 0
+          ? Number(value) * evaluationsRate.rateNumber
+          : Number(value);
+      setItems = item?.items.map((item, _) => (_ === indexId ? l : item));
+    }
+    setEvaluationsRate({ ...evaluationsRate, setRate: { ...item, items: setItems } });
+  };
 
   return (
     <div className="fields p-2">
@@ -287,19 +310,18 @@ export function ProcessMake(props: Props) {
           value={imagePath}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => setImagePath(e.target?.value)}
         />
-        <div className="max320">
-          {imagePath !== "" && <img src={imagePath} alt="" />}
-        </div>
+        <div className="max320">{imagePath !== "" && <img src={imagePath} alt="" />}</div>
       </div>
       <div className="field pb-1">
         <div className="add-select-method">
           <div className="d-inline input-filter positionbase cursol-absolute-view">
             <p className="p-1">セレクトタグ : </p>
             <div className="d-line p-1 mb-1 border">
-              {filterTagger.map((item,index) =>  
+              {filterTagger.map((item, index) => (
                 <span key={`filterTag${index}`} className="tag d-inline mr-1">
                   {item}
-                </span>)}
+                </span>
+              ))}
             </div>
             <div className="hover-absolute-view background-white box-shadow p-1">
               {viewTagger.map((item, index) => (
@@ -309,7 +331,9 @@ export function ProcessMake(props: Props) {
                   onClick={() => {
                     selectTagger(item);
                   }}
-                >{item}</span>
+                >
+                  {item}
+                </span>
               ))}
             </div>
           </div>
@@ -324,7 +348,7 @@ export function ProcessMake(props: Props) {
               />
               <div className="input-filter-view over-scroll box-shadow border">
                 <div className="selects-method p-1 pb-3">
-                  {listMethods.map((method,index) => (
+                  {listMethods.map((method, index) => (
                     <div
                       key={index}
                       className="select-card max420 positionbase cursol-absolute-view p-1"
@@ -354,63 +378,79 @@ export function ProcessMake(props: Props) {
               step={0.1}
               min={0}
               eventChange={(value: string) => {
-                updateEvaluationsRate("rateNumber",value);
+                updateEvaluationsRate("rateNumber", value);
               }}
             />
           </div>
-          <div className="minh150 flex-nw p-1" style={{ minWidth: `${makeProcess.length * 320}px`}}>
-            {evaluations.map((item,_) => <div key={item.methodId+_} className="method-card max320 box-shadow p-1 positionbase">
-              <h3 className="title">{item.title}</h3>
-              <div>
-                <div className="btn-actions">
-                  <button
-                    className="btn"
-                    onClick={() => evaluationsRateSetRateAction("add",item.methodId,_)}
-                  >+</button>
-                  <button
-                    className="btn"
-                    onClick={() => evaluationsRateSetRateAction("delete",item.methodId,_)}
-                  >-</button>
-                </div>
-                {(evaluationsRate.setRate?.items ?? []).map((rate,__) => <div key={`${_}-${__}`} className="d-inline">
-                    {rate}                
-                  <FieldInput
-                    type="number"
-                    id={`evaluationsRate${__}`}
-                    label={`増減${__}`}
-                    className="small"
-                    value={String(rate)}
-                    step={0.01}
-                    min={0}
-                    eventChange={(value: string) => {
-                      evaluationsRateSetRateAction("update",item.methodId,__,value)
-                    }}
-                  />
+          <div
+            className="minh150 flex-nw p-1"
+            style={{ minWidth: `${makeProcess.length * 320}px` }}
+          >
+            {evaluations.map((item, _) => (
+              <div
+                key={item.methodId + _}
+                className="method-card max320 box-shadow p-1 positionbase"
+              >
+                <h3 className="title">{item.title}</h3>
+                <div>
+                  <div className="btn-actions">
+                    <button
+                      className="btn"
+                      onClick={() => evaluationsRateSetRateAction("add", item.methodId, _)}
+                    >
+                      +
+                    </button>
+                    <button
+                      className="btn"
+                      onClick={() => evaluationsRateSetRateAction("delete", item.methodId, _)}
+                    >
+                      -
+                    </button>
                   </div>
-                )}
+                  {(evaluationsRate.setRate?.items ?? []).map((rate, __) => (
+                    <div key={`${_}-${__}`} className="d-inline">
+                      {rate}
+                      <FieldInput
+                        type="number"
+                        id={`evaluationsRate${__}`}
+                        label={`増減${__}`}
+                        className="small"
+                        value={String(rate)}
+                        step={0.01}
+                        min={0}
+                        eventChange={(value: string) => {
+                          evaluationsRateSetRateAction("update", item.methodId, __, value);
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>)}
+            ))}
           </div>
         </div>
         <ProcessCards
           type="edit"
           processItems={makeProcess}
-          detailChange={(methodId:string,value:string) => {
+          detailChange={(methodId: string, value: string) => {
             upProcessItem(methodId, value);
           }}
-          deleteChange={(index:number) => {
+          deleteChange={(index: number) => {
             removeMethod(index);
           }}
         />
         <div className="similar-process-cards">
-          <div className="p-2">手段をベースに類似プロセスを構築します。
+          <div className="p-2">
+            手段をベースに類似プロセスを構築します。
             <button className="btn" onClick={increasedProductionAction}>
               join
             </button>
           </div>
-          <div className="similar-view">
-            {makeSimilarProcess.map((item) => <div>@@@</div>)}
-          </div>
+          {/* <div className="similar-view">
+            {makeSimilarProcess.map((item, key) => (
+              <div key={key}>@@@</div>
+            ))}
+          </div> */}
         </div>
       </div>
       <div className="field pb-1">
@@ -425,11 +465,21 @@ export function ProcessMake(props: Props) {
       </div>
       <div className="field">
         {editType === "edit" ? (
-          <button className="btn" onClick={updateProcessAction}>
+          <button
+            className="btn"
+            onClick={(e: React.MouseEvent) => {
+              updateProcessAction(e);
+            }}
+          >
             update
           </button>
         ) : (
-          <button className="btn" onClick={addProcessAction}>
+          <button
+            className="btn"
+            onClick={(e: React.MouseEvent) => {
+              addProcessAction(e);
+            }}
+          >
             save
           </button>
         )}

@@ -59,7 +59,7 @@ export class FetchApi {
       },
       body: JSON.stringify({ [key]: id }),
     };
-    console.log(params)
+    console.log(params);
     try {
       const res = await fetch(path, params);
       return res.json().then((res) => res);
